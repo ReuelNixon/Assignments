@@ -1,0 +1,1031 @@
+Addition
+MOV AX,1111H
+MOV BX,2222H
+ADD AX,BX
+MOV [2000],AX
+HLT
+
+
+
+Subtraction
+MOV AX,2222H
+MOV BX,1111H
+SUB AX,BX
+MOV [3000],AX
+HLT
+
+
+
+Multiplication
+MOV AX,3H
+MOV BX,2H
+MUL BX
+MOV [4000],AX
+HLT
+
+
+
+Division
+MOV AX,0006
+MOV BX,0003
+DIV BX
+MOV [2000],AX
+HLT
+
+
+
+average of three numbers
+MOV BX,3H
+MOV AX,2H
+ADD AX,2H
+ADD AX,2H
+DIV BX
+MOV [2000],AX
+HLT
+
+
+
+add with carry
+MOV AX,[2000]
+MOV BX,[2002]
+MOV CL,00
+ADD AX,BX
+JNC 1050
+INC CL
+MOV [2004],AX
+MOV [2000],CL
+HLT
+
+
+
+sum of array of numbers
+MOV CX, 05h 1000
+MOV AX,0000H
+MOV BX,0000H
+MOV SI,1000H
+Repeat:
+MOV BL,[SI] --1010
+ADD AX,BX -1012
+INC SI -1014 -1002
+DEC CX -1015
+JNZ Repeat -1016
+MOV DI, 1011H -1018
+MOV [DI], AX -101c
+HLT
+
+
+
+sum of corresponding elements of two arrays
+MOV SI, 1000    : set the value of SI to 1000
+MOV CL, [SI]    : load data from offset SI to register CL
+MOV CH, 00      : set value of register CH to 00
+INC SI          : increase value of SI by 1.
+MOV DI, 2000    : set the value of DI to 2000.
+MOV AL, [SI]    : load value from offset SI to register AL
+ADD AL, [DI]    : Add value of register AL by content at offset DI.
+MOV [SI], AL    : store value of register AL at offset SI.
+INC SI          : increase value of SI by 1.
+INC DI          : increase value of DI by 1.
+LOOP (address)  : jump to address if CX not 0 and CX=CX-1.
+HLT             : stop
+
+
+
+ascending order
+MOV CH,04H
+MOV CL,04H
+MOV SI,2000
+MOV AL, [SI]
+MOV BL, [SI+1]
+CMP AL, BL
+JC 1050 ; Random value is given here and then later updated
+MOV DL, [SI+1]
+XCHG [SI], DL
+MOV [SI+1], DL
+INC SI
+DEC CL
+JNZ 100A
+DEC CH
+JNZ 1003
+HLT
+
+
+
+descending order
+MOV CH,04H
+MOV CL,04H
+MOV SI,2000
+MOV AL,[SI]
+MOV BL,[SI+1]
+CMP AL,BL
+JNB 1070 ; Random value was given here and will be updated once again
+MOV DL,[SI+1]
+XCHG [SI],DL
+MOV [SI+1],DL
+INC SI
+DEC CL
+JNZ 100A
+DEC CH
+JNZ 1003
+HLT
+
+
+
+factorial
+MOV CX, 04H
+MOV AX, 0001
+MOV BX, AX
+INC BX
+MUL BX
+CMP BX, CX
+JNZ 1050
+MOV [2000], AX
+HLT
+
+
+
+permutation
+START:
+MOV DX,0006H
+MOV CX,0004H
+SUB DX,CX
+MOV CX,DX
+MOV AX,0001H
+LOOP1:
+MUL CX
+DEC CX
+JNZ LOOP1
+MOV BX,AX
+MOV CX,0006H
+MOV AX,0001H
+LOOP2:
+MUL CX
+DEC CX
+JNZ LOOP2
+DIV BX
+HLT
+
+
+
+combination
+START:
+MOV DX,0006H
+MOV CX,0004H
+SUB DX,CX
+MOV CX,DX
+MOV AX,0001H
+LOOP1:
+MUL CX
+DEC CX
+JNZ LOOP1
+MOV BX,AX
+MOV CX,0006H
+MOV AX,0001H
+LOOP2:
+MUL CX
+DEC CX
+JNZ LOOP2
+DIV BX
+MOV BX,AX
+MOV CX,0004H
+MOV AX,0001H
+LOOP3:
+MUL CX
+DEC CX
+JNZ LOOP3
+MOV CX,AX
+MOV AX,BX
+DIV CX
+HLT
+
+
+
+LAB6:
+1. Addition:
+	ORG 00H
+	MOV A, #0BH
+	MOV B, #08H
+	ADD A, B
+	MOV 55H, A
+	END
+
+2. Subtraction:
+	ORG 00H
+	MOV A, #0BH
+	MOV B, #08H
+	SUBB A, B
+	MOV 55H, A
+	MOV 56H, B
+	END
+
+3. Multiplication:
+	ORG 00H
+	MOV A, #0BH
+	MOV B, #08H
+	MUL A, B
+	MOV 55H, A
+	END
+
+4. Division:
+	ORG 00H
+	MOV A, #0BH
+	MOV B, #08H
+	DIV A, B
+	MOV 55H, A
+	MOV 56H, B
+	END
+
+5. AND:
+	ORG 00H
+	MOV A, #0BH
+	MOV B, #08H
+	ANL A, B
+	MOV 55H, A
+	END
+
+6. XOR:
+	ORG 00H
+	MOV A, #0BH
+	MOV B, #08H
+	XRL A, B
+	MOV 55H, A
+	END
+
+
+
+LAB6:
+1. Write an 8051 ASM program to perform addition of two 8-bit numbers 97H and 76H and store the result at address location 55H.
+ORG 0000H
+MOV A, #97H
+ADD A, #76H
+MOV 55H, A
+END
+
+2. Write an 8051 ASM program to perform subtraction of two 8-bit numbers 76H and 97H and store the result at address location 55H.
+ORG 0000H
+MOV A, #97H	 97H
+SUBB A, #76H
+MOV 55H, A
+END
+
+
+
+3. Write an 8051 ASM program to perform addition of two 16-bit numbers. The numbers are 3CE7H and 3B8DH. Place the sum in R7 and R6; R7 holds higher byte and R6 should have the lower byte.
+ORG 0000H
+MOV A, #0E7H	 
+ADD A, #8DH
+MOV R6, A
+MOV A, #3CH
+ADDC A,#3BH
+MOV R7, A
+END
+
+4. Write an 8051 ASM program to perform subtraction of two 16-bit numbers. The numbers are 2762H and 1276H. Place the difference in R7 and R6; R6 should have the lower byte.
+ORG 0000H
+MOV A, #62H	 
+SUBB A, #76H
+MOV R6, A	; R6=ECH
+MOV A, #27H
+SUBB A,#12H
+MOV R7, A         ; R7=14H
+END	
+
+5. Write an 8051 ASM program to perform multiplication of two 8-bit numbers present in data memory address location 33H & 34H and store the result in 36H (higher byte) & 35H (Lower byte).
+ORG 0000H
+MOV 33H, #42	 
+MOV 34H, #05
+MOV A,33H
+MOV B,34H
+MUL AB
+MOV 36H, B
+MOV 35H, A
+END			
+
+6. Write an 8051 ASM program to perform division on 8-bit numbers present in data memory address location 33H & 34H and store the result in 35H (Reminder) & 36H (Quotient).
+ORG 0000H
+MOV A, 33H	 
+MOV B, 34H
+DIV AB
+MOV 35H, B
+MOV 36H, A
+END
+
+	
+
+LAB7:
+1. Write a program to clear accumulator [A], then add 5 to the accumulator 20 times.
+ORG 0000H
+MOV A, #00	  
+MOV R0, #20	
+LOOP: ADD A, #05		 
+DJNZ R0, LOOP
+MOV R5, A	
+END
+
+
+2. Write an 8051 ASM program to copy a block of 5 bytes from RAM 50H to 40H.
+	ORG 0000H
+	MOV R0,#40H
+	MOV R1,#50H
+	MOV R2, #05H
+LOOP:	MOV A,@R0
+	MOV @R1, A
+	INC R0
+	INC R1
+	DJNZ R2, LOOP
+	END
+
+
+
+3. Write a program to  move a block of FIVE data starting from RAM 40H to external ROM memory 3000H onwards and perform complement operation before storing to ROM.
+	ORG 0000H
+	MOV R0, #40H
+	MOV DPTR, #3000H
+	MOV R2, #05H
+LOOP: 	MOV A,@R0
+	CPL A
+	MOVX @DPTR,A
+	INC R0
+	INC DPTR
+	DJNZ R2, LOOP
+	END
+
+
+4. Write an 8051 ASM program to add the first 15 natural numbers.
+	ORG 0000H
+	MOV A, 00H
+	MOV R1, #00H
+	MOV R2, #15D
+	MOV R0, #01H
+AGAIN:  ADD A, R0
+	JNC Label
+	INC R1
+Label:	INC R0
+	DJNZ R2, AGAIN
+	MOV 55H, A
+	MOV 56H, R1
+	END
+
+
+5. Write an 8051 ASM program to read a temperature value (T) from RAM location 55H. According to the test results, place the temperature value into the registers indicated below:
+		If T=30H then A=30H
+		If T<30H then R1=T
+		If T>30H then R2=T
+
+	ORG 0000H
+	MOV A, 55H
+	CJNE A, #30H, OVER
+	SJMP EXIT
+OVER: 	JNC NEXT
+	MOV R1, A
+	SJMP EXIT
+NEXT: 	MOV R2, A
+EXIT: 	NOP
+	END
+
+
+
+LAB8:
+1. Write an assembly language program to perform logical operations AND,  OR, XOR  on two eight bit numbers stored in internal RAM locations 21h, 22h and store their result in the memory location 30h, 31h, 32h respectively.
+MOV A, 21H    		//AS DATA RAM 21H IS TO BE ACCESSED
+ANL   A, 22H    		//LOGICAL AND OPERATION
+MOV   30H, A   	//AND OPERATION RESULT STORED IN 30H
+
+MOV   A, 21H
+ORL   A,22H    		//LOGICAL OR OPERATION
+MOV   31H, A    	//OR OPERATION RESULT STORED IN 31H
+
+MOV   A,21H
+XRL   A,22H    		//LOGICAL XOR OPERATION
+MOV   32H,A    	// XOR OPERATION RESULT STORED IN 32H
+END
+
+
+2. Write an 8051 ALP to find the number of 1’s in a given byte.
+	MOV R1,#0
+	MOV R7,#8
+	MOV A,#97H
+AGAIN:	RLC A
+	JNC NEXT
+	INC R1
+NEXT:	DJNZ R7,AGAIN
+
+
+3. Write an ALP  to  compare two eight bit numbers NUM1 and NUM2 stored in external memory locations 8000h and 8001h respectively.  Reflect your  result as: 
+ If NUM1<NUM2, SET LSB of data RAM  location  2FH  (bit address 78H).  
+If  NUM1>NUM2, SET MSB  of  location  2FH            (bit address 7FH).  
+If    NUM1 =  NUM2, then  CLR both LSB  & MSB of bit addressable memory location 2FH.
+
+	MOV   DPTR,#8000H
+	MOVX   A,@DPTR
+	MOV   R0,A
+	INC   DPTR
+	MOVX   A,@DPTR
+	CLR   C
+	SUBB   A,R0
+	JZ   EQUAL
+	JNC   SMALL
+	SETB   7FH
+	SJMP   END1
+SMALL:  SETB   78H
+	SJMP   END1
+EQUAL: 	CLR   78H
+	CLR   7FH
+END1:	NOP
+	END
+
+4. Write an 8051 ALP to implement a half adder logic such that P0.0 (B) and P0.1 (A) be two inputs while P2.0 (carry) and P2.1 (sum) be outputs.
+	ORG 000H
+	CLR P2.0       
+	CLR P2.1      
+	SETB P0.1
+	SETB P0.0    
+	MOV C, P0.0
+	ANL C, P0.1
+	MOV P2.0, C
+	MOV C, P0.0
+	JC INPUT1
+	MOV A, #00H
+
+BACK1: 	MOV C, P0.1
+	JC INPUT2
+	MOV R0, #00H
+
+BACK2: 	XRL A, R0
+	MOV C, ACC.0
+	MOV P2.1, C
+	SJMP END1
+	
+INPUT1 :MOV A, #01H
+	SJMP BACK1
+
+INPUT2: MOV R0, #01H
+	SJMP BACK2
+
+END1: 	NOP
+	END
+
+5. Write an 8051 ALP to check whether the given 8-bit number is a palindrome number or not? If so, set the bit 30h in the bit-addressable area of RAM.
+ORG 0000H
+	MOV R0, #77H
+	MOV A, #0FH
+	ANL A, R0
+	MOV R2,A
+	MOV A,#0F0H
+	ANL A, R0
+	RR A
+	RR A
+	RR A
+	RR A
+	SUBB A, R2
+	JZ LOOP1
+	CLR 30H
+	SJMP END1
+	
+ LOOP1: SETB 30H
+	END1: NOP
+	END
+		 
+	
+
+
+LAB9:
+1. Write an 8051 assembly language program to toggle all the bits of P1 for every 200ms. Assume the crystal frequency as 11.0592 MHz.
+	ORG 0000H
+	MOV P0, #00H
+BACK:	MOV A,#55H
+	MOV P0, A
+	ACALL DELAY
+	MOV A,#0AAH
+	MOV P0, A
+	ACALL DELAY
+	SJMP BACK
+DELAY: 	MOV R2, #200			1
+AGAIN:	MOV R3, #250			1
+HERE:	NOP				1
+	NOP				1
+	DJNZ R3, HERE			2
+	DJNZ R2, AGAIN			2
+	RET				2
+	END
+
+
+2. Square wave of 75% duty cycle on bit 7 of port 1 with time period of 800ms
+	ORG 0000H
+	MOV P1, #00H
+BACK:	SETB P1.7 
+	ACALL DELAY 
+	ACALL DELAY 
+	ACALL DELAY
+	CLR P1.7
+	ACALL DELAY
+	SJMP BACK
+DELAY:	MOV R2, #181
+AGAIN:	MOV R3, #255
+HERE:	NOP
+	NOP
+	DJNZ R3, HERE 
+	DJNZ R2, AGAIN
+	RET
+	END
+
+2. Write an 8051 assembly language program to create a square wave of 66% duty cycle on bit 3 of port 1.
+
+DELAY: MOV R3, #200H		
+HERE: DJNZ R3, HERE
+RET
+
+[(200x2) +1+2] x 1.085us = 436.255 us
+
+ORG 0000H
+MOV P0, #00H
+BACK:	   MOV A,#55H
+MOV P0, A
+ACALL DELAY
+ACALL DELAY
+MOV A,#0AAH
+MOV P0, A
+ACALL DELAY
+SJMP BACK
+
+3. write a program to monitor the port pin P0.1 until it becomes high
+(a). when P0.1 becomes high read the data from port 1 to A
+(b). send a low-to-high pulse on p.0.2 to indicate that data has been read
+
+SETB P0.1
+MOV P1,#0FFH
+AGAIN: JNB P0.1, AGAIN
+MOV A, P1
+CLR P0.2
+ACALL DELAY
+SETB P0.2 
+
+
+Lab6:
+1. Write an 8051 assembly language program to toggle the LED connected to P2.4 for every 10 seconds (Duty Cycle – 50%). Assume the crystal frequency as 11.0592 MHz. Verify the output using 8051 Microcontroller kit.
+
+	ORG 0000H
+BACK:	SETB P2.4
+	ACALL DELAY
+	CLR P2.4
+	ACALL DELAY
+	SJMP BACK
+DELAY:	MOV R4, #10
+REPEAT:	MOV R1, #04
+LOOP1:	MOV R2, #250
+LOOP2:	MOV R3, #250
+LOOP3:	NOP
+	NOP
+	DJNZ R3, LOOP3
+	DJNZ R2, LOOP2
+	DJNZ R1, LOOP1 
+	DJNZ R4, REPEAT
+	RET
+	END
+
+2.Write an 8051 assembly language program to generate a square wave at P2.4 with duty cycle of 75%. Assume the crystal frequency as 11.0592 MHz. Use the same delay program. Verify the output using 8051 Microcontroller kit.
+	ORG 0000H
+BACK:	SETB P2.4
+	ACALL DELAY
+	ACALL DELAY
+	ACALL DELAY
+	CLR P2.4
+	ACALL DELAY
+	SJMP BACK
+DELAY:	MOV R4, #10
+REPEAT:	MOV R1, #04
+LOOP1:	MOV R2, #250
+LOOP2:	MOV R3, #250
+LOOP3:	NOP
+	NOP
+	DJNZ R3, LOOP3
+	DJNZ R2, LOOP2
+	DJNZ R1, LOOP1 
+	DJNZ R4, REPEAT
+	RET
+	END
+
+
+3. Write an 8051 assembly language program to glow the  3 LEDs connected to P2 one at a time in a serial fashion (from LSB to MSB) continuously with same delay. Verify the output using 8051 Microcontroller kit. Assume the crystal frequency as 24 MHz. 
+	ORG 0000H
+	MOV P2, #00H
+AGAIN:	MOV R5, #03H
+	MOV A, #01H
+L11: 	MOV P2, A  
+	ACALL DELAY
+	RL A
+	DJNZ R5, L11
+	SJMP AGAIN
+
+
+LAB10:
+1. Write an 8051 assembly language program using timers to generate a frequency of 2kHz on pin  port pin P2.7. Assume the crystal frequency as 11.0592 MHz. 
+	ORG 0000H
+	MOV TMOD, #01H
+BACK:	MOV TL0, #01AH
+	MOV TH0, #0FFH
+	SETB TR0
+AGAIN: JNB TF0, AGAIN
+	CLR TR0
+	CPL P2.7
+	CLR TF0
+	SJMP BACK
+
+
+2. Write an 8051 assembly language program to toggle bit of P2.4 for every 1 second. Assume the crystal frequency as 33 MHz. Verify the output using ESA 8051 Microcontroller kit.
+	ORG 0000H
+	MOV TMOD, #10H
+	REPEAT: MOV R0,#42
+	CPL P2.4
+BACK: 	MOV TL1, #00H
+	MOV TH1, #00H
+	SETB TR1
+AGAIN:	JNB TF1, AGAIN
+	CLR TR1
+	CLR TF1
+	DJNZ R0, BACK
+	SJMP REPEAT
+
+
+3.Assuming that clock pulses are fed into pin T1 (P3.5), write an 8051 assembly language program for counter 1 in mode 2 to count the pulses and display the state  of the TL1 count on P1, which connects to 8 LEDs.
+	ORG 000H
+REPEAT: MOV TMOD, #60H
+	MOV TH1, #0
+	SETB P3.5
+AGAIN: SETB TR1
+BACK:	MOV A, TL1
+	MOV P1, A
+	JNB TF1, BACK
+	CLR TR1
+	CLR TF1
+	SJMP REPEAT
+
+
+
+4. Write a program for the 8051 to transfer “VIT” with one space serially at 9600 baud, 8-bit data, 1 stop bit, do this continuously.
+	MOV TMOD,#20H 		;timer1,mode 2(auto reload)
+	MOV TH1,#-3H 		;9600 baud rate
+	MOV SCON,#40H 		;8-bit, 1 stop, REN disabled
+	SETB TR1  		;start timer 1
+AGAIN:	MOV A,#'V' 		;transfer “Y”
+	ACALL TRANS
+	MOV A,#'I' 		;transfer “I”
+	ACALL TRANS
+	MOV A,#'T' 		;transfer “T”
+	ACALL TRANS
+	MOV A,#' ' 		;transfer “ ”
+	ACALL TRANS
+	SJMP AGAIN  		;keep doing it 
+
+;serial data transfer subroutine 
+TRANS:	MOV SBUF,A 		;load SBUF
+HERE:	JNB TI,HERE  		;wait for the last bit
+	CLR TI  		;get ready for next byte
+	RET	
+
+
+5. Write a program for the 8051 to receive bytes of data serially, and put them in P1, set the baud rate at 4800, 8-bit data, 1 start and 1 stop bit.
+
+	MOV TMOD,#20H 		;timer1,mode 2(auto reload)
+	MOV TH1,#-6H		;4800 baud rate
+	MOV SCON,#50H		;8-bit, 1 stop, REN enabled
+	SETB TR1  		;start timer 1
+	HERE: JNB RI,HERE  	;wait for char to come in
+	MOV A,SBUF		;saving incoming byte in A
+	MOV P1,A 		;send to port 1
+	CLR RI 			;getready to receive next ;byte
+	SJMP HERE 		;keep getting data
+
+
+LAB11:
+
+1. Write a timer interrupt program that continuously get 8-bit data from P0 and sends it to P1 while simultaneously creating a square wave of 100 μs period on pin P2.1. Use timer 0 to create the square wave. Assume that XTAL = 33 MHz.
+
+	ORG 0000h
+	LJMP main
+
+	ORG 000Bh
+	CPL P2.1
+	RETI
+main: 	MOV TMOD,#02H
+	MOV P0,#0FFH
+	MOV  TH0,#XXH
+	MOV IE,#82H
+	SETB TR0
+Back:	MOV A,P0
+	MOV P1,A
+	SJMP Back
+	END
+
+
+2. Assume that the INT1 pin is connected to a switch that is normally high. Whenever it goes low, it should turn on an LED. The LED is connected to P1.3 and is normally off. As long as    the switch is pressed low, the LED should stay on. Simultaneously perform a toggle operation in P1.5 with the delay of 200ms.
+	ORG 0000H
+	LJMP main
+
+	ORG 0013H
+	SETB P1.3
+	MOV R3,#255
+Back:	DJNZ R3, Back
+	CLR P1.3
+	RETI
+	ORG 30H
+main:	MOV IE,#10000100B
+Here: 	SETB P1.5
+	ACALL DELAY
+	CLR P1.5
+	ACALL DELAY
+	SJMP Here
+	
+//Delay of 200ms
+DELAY: 	MOV R2,#181  		 
+AGAIN: 	MOV R3,#255H  		
+HERE2:	NOP
+	NOP
+	DJNZ R3, HERE2
+	DJNZ R2, AGAIN
+  	RET	                
+	END  
+
+
+3. To write an ALP for the generation of the square pulse of 50% duty cycle with on time of 10 ms using timer 0 at Port P2.1 and simultaneously send ‘Y’ and ‘N’ to Port 0 and Port 1 respectively. Assume that XTAL = 11.0592 MHz.
+	ORG 0000H
+	LJMP MAIN
+	ORG 0030H
+MAIN:	MOV TMOD,#01H
+	MOV IE,#82H
+	SETB TR0
+	LOOP:
+	MOV A,#"Y"
+	MOV P0,A
+	MOV A,#"N"
+	MOV P1,A
+	SJMP LOOP
+	ORG 000BH
+	MOV TH0,#0DBH
+	MOV TL0,#0FEH
+	CPL P2.1
+	RETI
+	END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------NOT OURS----------------------------------------
+
+
+lab6
+1. Write an 8051 assembly language program to toggle all the bits of P1 for every 500ms (0.5 Seconds). Assume the crystal frequency as 11.0592 MHz. Verify the output using ESA 8051 Microcontroller kit.
+ORG 0000H
+MOV P1, #00H
+BACK:	   MOV A,#55H
+MOV P1, A
+ACALL DELAY
+MOV A,#0AAH
+MOV P1, A
+ACALL DELAY
+SJMP BACK
+DELAY: 	MOV R2,#04H   ;LOAD R2 WITH 07 HEX
+HERE3: 	MOV R1,#0FFH  ;LOAD R1 WITH 0FF HEX
+HERE2:	MOV R0,#0FFH   ;LOAD R2 WITH 0FF HEX
+HERE1:	DJNZ R0,HERE1    ;DECREMENT R0
+		DJNZ R1,HERE2    ;DECREMENT R1
+		DJNZ R2,HERE3    ;DECREMENT R2
+  		RET	                        ;RETURN
+		END  
+
+2. Write an 8051 assembly language program to glow the LEDs connected on PORT1 one at a time in a serial fashion (from LSB to MSB) continuously with 0.5 seconds delay for each . Verify the output using ESA 8051 Microcontroller kit.
+	ORG 0000H
+	MOV P1,#00H
+	MOV A,#01H
+	AGAIN: MOV P1,A
+	ACALL DELAY
+	RL A
+	SJMP AGAIN
+DELAY: 	MOV R2,#04H   ;LOAD R2 WITH 07 HEX
+HERE3: 	MOV R1,#0FFH  ;LOAD R1 WITH 0FF HEX
+HERE2:	MOV R0,#0FFH   ;LOAD R2 WITH 0FF HEX
+HERE1:	DJNZ R0,HERE1    ;DECREMENT R0
+		DJNZ R1,HERE2    ;DECREMENT R1
+		DJNZ R2,HERE3    ;DECREMENT R2
+  		RET	                        ;RETURN
+		END  
+
+3. Write a program to transfer the data in port 0 serially (one bit at a time) pin P1.0 . Send high to low pulse at start and end of the data. Send the byte LSB first. Verify the output using ESA 8051 Microcontroller kit.
+org 0000H
+	MOV A, P0
+	MOV P1, #00H
+	SETB P1.0
+	CLR P1.0
+	MOV R5, #8
+	HERE: RRC A
+	MOV P1.0, C
+	ACALL DELAY
+	DJNZ R5, HERE
+	SETB P1.0
+	CLR P1.0
+DELAY: 	MOV R2,#04H   ;LOAD R2 WITH 07 HEX
+HERE3: 	MOV R1,#0FFH  ;LOAD R1 WITH 0FF HEX
+HERE2:	MOV R0,#0FFH   ;LOAD R2 WITH 0FF HEX
+HERE1:	DJNZ R0,HERE1    ;DECREMENT R0
+		DJNZ R1,HERE2    ;DECREMENT R1
+		DJNZ R2,HERE3    ;DECREMENT R2
+  		RET	                        ;RETURN
+		END  
+
+
+lab10
+1. Write an 8051 assembly language program to display the message “VIT” on LCD display
+ORG 0000H
+MOV A, #38H 			; INITIALIZE 2x16 LCD
+ACALL COMNWRT 		; call command subroutine
+ACALL DELAY 			; give LCD some time
+MOV A, #0EH 			; display on, cursor on
+ACALL COMNWRT 		; call command subroutine
+ACALL DELAY 			; give LCD some time
+MOV A, #01 			; clear LCD
+ACALL COMNWRT 		; call command subroutine
+ACALL DELAY 			; give LCD some time
+MOV A, #06H 			; shift cursor right
+ACALL COMNWRT 		; call command subroutine
+ACALL DELAY 			; give LCD some time
+MOV A, #84H 			; cursor at line 1, pos. 4
+ACALL COMNWRT 		; call command subroutine
+ACALL DELAY 			; give LCD some time
+MOV A, #'V'			; display letter N
+ACALL DATAWRT		; call display subroutine
+ACALL DELAY 			; give LCD some time
+MOV A, #‘I'			; display letter O
+ACALL DATAWRT 		; call display subroutine
+ACALL DELAY 			; give LCD some time
+MOV A, #‘T' 			; display letter O
+ACALL DATAWRT 		; call display subroutine
+
+AGAIN:     SJMP AGAIN 			; stay here
+COMNWRT:  				; send command to LCD
+MOV P2, A 				; copy reg A to port 1
+CLR P3.7 				; RS=0 for command
+CLR P3.6 				; R/W=0 for write
+SETB P3.5 				; E=1 for high pulse
+ACALL DELAY 			; give LCD some time
+CLR P3.5				; E=0 for H-to-L pulse
+RET
+DATAWRT:  			; write data to LCD
+MOV P2, A 		; copy reg A to port 1
+SETB P3.7			; RS=1 for data
+CLR P3.6			; R/W=0 for write
+SETB P3.5 			; E=1 for high pulse
+ACALL DELAY 		; give LCD some time
+CLR P3.5			; E=0 for H-to-L pulse
+RET
+DELAY: 	MOV R3, #50 		; 50 or higher for fast CPUs
+HERE2: 		MOV R4, #255 		; R4 = 255
+HERE: 		DJNZ R4, HERE  		; stay until R4 becomes 0
+		DJNZ R3, HERE2		; stay until R3 becomes 0
+		RET
+		END
+
+
+2. Write an 8051 assembly language program to display the message “VIT University” on LCD display using DPTR
+ORG 0000H
+	MOV DPTR, #MYCOM
+C1:  	CLR A
+	MOVC A,@A+DPTR
+	ACALL COMNWRT		 
+	ACALL DELAY 			
+	INC DPTR
+	JZ SEND_DAT
+	SJMP C1
+SEND_DAT:
+	MOV DPTR, #MYDATA
+D1: 	CLR A
+	MOVC A,@A+DPTR
+	ACALL DATAWRT 	
+	ACALL DELAY 		
+	INC DPTR
+	JZ AGAIN
+	SJMP D1
+AGAIN: 	SJMP AGAIN 
+COMNWRT:  			; send command to LCD
+MOV P1, A 			; copy reg A to P1
+CLR P3.7 			; RS=0 for command
+CLR P3.6 			; R/W=0 for write
+SETB P3.5			; E=1 for high pulse
+ACALL DELAY 		; give LCD some time
+CLR P3.5 			; E=0 for H-to-L pulse
+RET
+DATAWRT:  			; write data to LCD
+MOV P1, A 			; copy reg A to port 1
+SETB P3.7 			; RS=1 for data
+CLR P3.6			; R/W=0 for write
+SETB P3.5			; E=1 for high pulse
+ACALL DELAY 		; give LCD some time
+CLR P3.5			; E=0 for H-to-L pulse
+RET
+DELAY: 		MOV R3, #250 		; 50 or higher for fast CPUs
+HERE2: 		MOV R4, #255 		; R4 = 255
+HERE: 		DJNZ R4, HERE  		; stay until R4 becomes 0
+	DJNZ R3, HERE2
+	RET
+ 
+	ORG 300H
+MYCOM: 		DB 38H, 0EH, 01, 06, 84H, 0 	; commands and null
+MYDATA: 	DB “VIT University”, 0
+END
+
+
+
+
+
+
+
+lab12
+1. SQUARE
+
+ORG 0000H
+REPEAT: MOV A, #00H
+MOV P1,A
+ACALL DELAY
+MOV A,#0FFH
+MOV P1, A
+ACALL DELAY
+SJMP REPEAT
+DELAY: MOV R2, #04H
+HERE3: MOV R1, #0FFH
+HERE2: MOV R0, #HERE1
+DJNZ R1,HERE2;
+DJNZ R2,HERE3;
+RET
+END
+
+2. SAWTOOTH
+
+ORG 0000H
+MOV A, #00H
+REPEAT: MOV P1,A
+ACALL DELAY
+INC A
+ACALL DELAY
+SJMP REPEAT
+DELAY: MOV R0, #04H
+HERE2: MOV R1, 0FFH
+HERE1: DJNZ R1, HERE1
+DJNZ R0,HERE2
+RET
+END
+
+3. SINEWAVE
+ORG 0000H
+AGAIN: MOV DPTR, #TABLE
+MOV R2, #COUNT
+BACK: CLR A
+MOVC A, @A+DPTR
+MOV P1,A
+DJNZ R2, BACK
+SJMP AGAIN
+ORG 300
+TABLE: DB 128,192,238,255,238,192
+DB 128,64,17,0,17,64,128
+
+4. STAIRCASE
+ORG 0000H
+START: MOV A, #00H
+MOV P1, A
+ACALL DELAY
+BACK: add A,#00fh
+mov p1,a;
+acall DELAY;
+CJNE A,#255,BACK
+SJMP START
+DELAY: MOV R0, #255
+HERE1: MOV R1, #0FFH
+HERE: DJNZ R1,HERE
+DJNZ R0,HERE1
+RET
+
+5. TRIANGLE
+  org 00h
+	back : mov a, #00h
+	repeat : mov p1,a
+	acall delay
+	inc a 
+	cjne a, #0ffh ,repeat
+	mov a,#0ffh
+	repeat1 : mov p1,a
+	acall delay 
+	dec a 
+	cjne a, #00h,repeat1
+	sjmp back
+	delay : mov r0,#04h
+	here1 : mov r1,#0ffh
+	here : djnz r1,here 
+	djnz r0,here
